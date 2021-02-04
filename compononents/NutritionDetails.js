@@ -1,10 +1,44 @@
-import React from 'react';
+import React,{ useState} from 'react';
 import {View,TextInput,StyleSheet,Text} from "react-native";
 //import {Button} from "react-native-web";
 //import {Text} from "react-native";
 import { Container, Header, Content, Form, Item, Input, Label , Button } from 'native-base';
+import axios from "axios";
 
-export default function  NutritionDetails (){
+export default function  NutritionDetails ({submitHandler}){
+
+    const [fruit,setFruit] = useState('');
+    const [count,setCount] = useState('');
+    const [sentence,setSentence] = useState('');
+    const [vitamin, setVitamin] = useState('');
+
+
+    const changeFruitName = (val) =>{
+        setFruit(val);
+    }
+
+    const changeFruitCount =(val) =>{
+        setCount(val);
+    }
+
+    const changeVitamin = (val) =>{
+        setVitamin(val);
+    }
+
+    const submitFunc = () =>{
+        //console.log(fruit);
+        //console.log(count);
+        setSentence("vitamin "+vitamin+"in "+count+" "+fruit);
+        console.log(sentence);
+
+
+
+
+
+
+    }
+
+
     return(
         <Container>
             <Header />
@@ -12,14 +46,25 @@ export default function  NutritionDetails (){
                 <Form>
                     <Item stackedLabel>
                         <Label style={styles.text}>Enter Fruit Name</Label>
-                        <Input style={styles.input}/>
+                        <Input style={styles.input}
+                               onChangeText={changeFruitName}
+                        />
                     </Item>
                     <Item stackedLabel last>
                         <Label style={styles.text}>Add Fruit Count</Label>
-                        <Input style={styles.input} />
+                        <Input style={styles.input}
+                                onChangeText={changeFruitCount}
+                        />
                     </Item>
-                    <Button title='Submit'/>
-
+                    <Item stackedLabel last>
+                        <Label style={styles.text}>Add Vitamin Type</Label>
+                        <Input style={styles.input}
+                               onChangeText={changeVitamin}
+                        />
+                    </Item>
+                    <Button style={styles.button} title='Submit' onPress={submitFunc}>
+                        <Text style={styles.textButton}>Submit</Text>
+                    </Button>
                 </Form>
             </Content>
         </Container>
@@ -34,9 +79,23 @@ const styles = StyleSheet.create({
         borderColor:'black',
         borderWidth:2,
         marginTop:20,
+         textAlign:'left',
     },
     text:{
         fontSize:20,
         alignContent:'center',
-    }
+
+    },
+    button:{
+         marginTop:10,
+        marginHorizontal:120,
+        borderRadius: 10,
+        width:120,
+        backgroundColor:'#4db8ff',
+    },
+    textButton:{
+        fontSize:20,
+        textAlign: 'center',
+        marginLeft:30,
+    },
 })
